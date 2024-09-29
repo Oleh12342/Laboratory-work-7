@@ -1,0 +1,80 @@
+football_teams = {
+    "Команда A": 45,
+    "Команда B": 39,
+    "Команда C": 42,
+    "Команда D": 30,
+    "Команда E": 36,
+    "Команда F": 33,
+    "Команда G": 48,
+    "Команда H": 40,
+    "Команда I": 27,
+    "Команда J": 24
+}
+
+def print_teams(teams):
+    for team, points in teams.items():
+        print(f"{team}: {points} очок")
+
+def add_team(teams):
+    try:
+        name = input("Введіть назву команди: ")
+        points = int(input("Введіть кількість очок: "))
+        if name in teams:
+            print(f"Команда {name} вже існує.")
+        else:
+            teams[name] = points
+            print(f"Команду {name} додано.")
+    except ValueError:
+        print("Невірний формат очок. Має бути ціле число.")
+
+def remove_team(teams):
+    name = input("Введіть назву команди, яку хочете видалити: ")
+    if name in teams:
+        del teams[name]
+        print(f"Команда {name} видалена.")
+    else:
+        print(f"Команди з назвою {name} не існує.")
+
+def print_sorted_teams(teams):
+    sorted_teams = sorted(teams.items(), key=lambda x: x[1], reverse=True)
+    for team, points in sorted_teams:
+        print(f"{team}: {points} очок")
+
+def determine_winners(teams):
+    sorted_teams = sorted(teams.items(), key=lambda x: x[1], reverse=True)
+    champion = sorted_teams[0]
+    second_place = sorted_teams[1]
+    third_place = sorted_teams[2]
+    print(f"Чемпіон: {champion[0]} з {champion[1]} очками")
+    print(f"Друге місце: {second_place[0]} з {second_place[1]} очками")
+    print(f"Третє місце: {third_place[0]} з {third_place[1]} очками")
+
+def menu():
+    while True:
+        print("\nМеню:")
+        print("1. Вивести всі команди")
+        print("2. Додати нову команду")
+        print("3. Видалити команду")
+        print("4. Вивести команди за відсортованими очками")
+        print("5. Визначити чемпіона і призерів")
+        print("6. Вийти")
+        choice = input("Виберіть дію (1-6): ")
+
+        if choice == "1":
+            print_teams(football_teams)
+        elif choice == "2":
+            add_team(football_teams)
+        elif choice == "3":
+            remove_team(football_teams)
+        elif choice == "4":
+            print_sorted_teams(football_teams)
+        elif choice == "5":
+            determine_winners(football_teams)
+        elif choice == "6":
+            print("Вихід з програми.")
+            break
+        else:
+            print("Невірний вибір, спробуйте ще раз.")
+
+if __name__ == "__main__":
+    menu()
